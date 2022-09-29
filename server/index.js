@@ -1,5 +1,8 @@
 const { ApolloServer } = require('apollo-server')
 const gql = require('graphql-tag')
+const mongoose = require('mongoose')
+
+require('dotenv').config()
 
 const typeDefs = gql`
     type Query {
@@ -16,6 +19,8 @@ const server = new ApolloServer({
     typeDefs,
     resolvers
 });
+
+mongoose.connect(process.env.MONGO_URL)
 
 server.listen({ port: 5000 })
     .then(res => {
