@@ -1,21 +1,12 @@
 const { ApolloServer } = require('apollo-server')
 const mongoose = require('mongoose')
 
+const typeDefs = require('./graphql/typeDefs')
 const resolvers = require('./graphql/resolvers')
 
 require('dotenv').config()
 
-const typeDefs = gql`
-    type Post {
-        id: ID!,
-        body: String!,
-        username: String!,
-        createdAt: String!
-    }
-    type Query {
-        getPosts: [Post]
-    }
-`
+
 const resolvers = {
     Query: {
         getPosts: async () => {
