@@ -20,9 +20,14 @@ const server = new ApolloServer({
     resolvers
 });
 
-mongoose.connect(process.env.MONGO_URL)
+const MONGO_URL = process.env.MONGO_URL
 
-server.listen({ port: 5000 })
-    .then(res => {
+mongoose
+    .connect(MONGO_URL)
+    .then(() => {
+        console.log(`Mongo Database connected !`)
+        return server.listen({ port: 5000 })
+    })
+    .then((res) => {
         console.log(`Server running at ${res.url}`)
     })
