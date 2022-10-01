@@ -1,8 +1,11 @@
-const postsResolvers = require('./posts')
-const usersResolvers = require('./users')
+const User = require('../../models/User')
 
 module.exports = {
-    Query: {
-        ...postsResolvers.Quey
+    Mutation: {
+        register(parent, args, context, info) {
+            // TODO validate user data
+            // TODO make sure user does not exist
+            // TODO hash password and create an auth token
+        }
     }
 }
