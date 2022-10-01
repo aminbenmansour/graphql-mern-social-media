@@ -16,6 +16,17 @@ module.exports = {
             // TODO make sure user does not exist
             // hash password and create an auth token
             password = await bcrypt.hash(password, 12)
+
+            const user = new User({
+                email,
+                username,
+                password,
+                createdAt: new Date().toISOString()
+            })
+
+            // save to db
+            const res = await user.save()
+            
         }
     }
 }
