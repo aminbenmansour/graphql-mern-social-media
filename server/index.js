@@ -5,27 +5,12 @@ const typeDefs = require('./graphql/typeDefs')
 const resolvers = require('./graphql/resolvers')
 
 require('dotenv').config()
-
-
-const resolvers = {
-    Query: {
-        getPosts: async () => {
-            try {
-                const posts = await Post.find();
-                return posts
-            } catch (error) {
-                throw new Error(err);
-            }
-        }
-    }
-}
+const MONGO_URL = process.env.MONGO_URL
 
 const server = new ApolloServer({
     typeDefs,
     resolvers
 });
-
-const MONGO_URL = process.env.MONGO_URL
 
 mongoose
     .connect(MONGO_URL)
