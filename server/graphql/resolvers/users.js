@@ -3,6 +3,9 @@ const jwt = require('jsonwebtoken')
 
 const User = require('../../models/User')
 
+require('dotenv').config()
+const SECRET_KEY = process.env.SECRET_KEY
+
 module.exports = {
     Mutation: {
         async register(
@@ -26,7 +29,23 @@ module.exports = {
 
             // save to db
             const res = await user.save()
-            
+
+            // create token
+            const token = jwt.sign({
+                id: res.id,
+                email: res.email,
+                username: res.username,
+                createdAt: res.createdAt
+                },
+                SECRET_KEY,
+                {expiresIn: '1h'}
+            )
+
+            return {
+                ...res._doc,
+                id: res._id,
+                token
+            }
         }
     }
 }
