@@ -1,11 +1,21 @@
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+
 const User = require('../../models/User')
 
 module.exports = {
     Mutation: {
-        register(parent, args, context, info) {
+        async register(
+            parent,
+            {
+                registerInput: { username, email, password, confirmPassword }
+            },
+            context,
+            info) {
             // TODO validate user data
             // TODO make sure user does not exist
-            // TODO hash password and create an auth token
+            // hash password and create an auth token
+            password = await bcrypt.hash(password, 12)
         }
     }
 }
