@@ -8,6 +8,19 @@ const User = require('../../models/User')
 require('dotenv').config()
 const SECRET_KEY = process.env.SECRET_KEY
 
+function generateToken(user) {
+    return jwt.sign(
+        {
+            id: user.id,
+            email: user.email,
+            username: user.username,
+            createdAt: user.createdAt
+        },
+        SECRET_KEY,
+        {expiresIn: '1h'}
+    )
+}
+
 module.exports = {
     Mutation: {
         async login(
@@ -31,15 +44,7 @@ module.exports = {
                 throw new UserInputError("Wrong credentials", { errors })
             }
 
-            const token = jwt.sign({
-                id: user.id,
-                email: user.email,
-                username: user.username,
-                createdAt: user.createdAt
-                },
-                SECRET_KEY,
-                {expiresIn: '1h'}
-            )
+            const token = generateToken(user)
         },
         async register(
             parent,
@@ -76,15 +81,7 @@ module.exports = {
             const res = await user.save()
 
             // create token
-            const token = jwt.sign({
-                id: res.id,
-                email: res.email,
-                username: res.username,
-                createdAt: res.createdAt
-                },
-                SECRET_KEY,
-                {expiresIn: '1h'}
-            )
+            const token = generateToken(res)
 
             return {
                 ...res._doc,
