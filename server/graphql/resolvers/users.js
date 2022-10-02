@@ -10,6 +10,37 @@ const SECRET_KEY = process.env.SECRET_KEY
 
 module.exports = {
     Mutation: {
+        async login(
+            _,
+            { username, password }
+        ) {
+            const { valid, errors } = validateRegisterInput(username, email, password, confirmPassword)
+            if(!valid) {
+                throw new UserInputError('Errors', { errors })
+            }
+
+            const user = User.findOne({ username })
+
+            if(!user) {
+                errors.general = "User not found"
+                throw new UserInputError("User not found", { errors })
+            }
+            const match = bcrypt.compare(user.password, password)
+            if(!match) {
+                errors.general = "Wrong credentials"
+                throw new UserInputError("Wrong credentials", { errors })
+            }
+
+            const token = jwt.sign({
+                id: user.id,
+                email: user.email,
+                username: user.username,
+                createdAt: user.createdAt
+                },
+                SECRET_KEY,
+                {expiresIn: '1h'}
+            )
+        },
         async register(
             parent,
             {
