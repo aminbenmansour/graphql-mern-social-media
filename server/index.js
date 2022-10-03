@@ -9,7 +9,8 @@ const MONGO_URL = process.env.MONGO_URL
 
 const server = new ApolloServer({
     typeDefs,
-    resolvers
+    resolvers,
+    context: ({ req }) => ({ req })
 });
 
 mongoose
