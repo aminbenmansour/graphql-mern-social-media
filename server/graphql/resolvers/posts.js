@@ -22,5 +22,14 @@ module.exports = {
                 throw new Error(error)
             }
         }
+    },
+
+    Mutation: {
+        createPost: async (body) => {
+
+        },
+        deletePost: async (postId) => {
+            
+        }
     }
 }
