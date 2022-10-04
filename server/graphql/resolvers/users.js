@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {UserInputError} = require('apollo-server')
 
-const { validateRegisterInput } = require('../../utils/validators')
+const { validateRegisterInput, validateLoginInput } = require('../../utils/validators')
 const User = require('../../models/User')
 
 require('dotenv').config()
@@ -27,18 +27,19 @@ module.exports = {
             _,
             { username, password }
         ) {
-            const { valid, errors } = validateRegisterInput(username, email, password, confirmPassword)
+            const { valid, errors } = validateLoginInput(username, password)
             if(!valid) {
                 throw new UserInputError('Errors', { errors })
             }
 
-            const user = User.findOne({ username })
+            const user = await User.findOne({ username })
 
             if(!user) {
                 errors.general = "User not found"
                 throw new UserInputError("User not found", { errors })
             }
-            const match = bcrypt.compare(user.password, password)
+            
+            const match = await bcrypt.compare(password, user.password)
             if(!match) {
                 errors.general = "Wrong credentials"
                 throw new UserInputError("Wrong credentials", { errors })
