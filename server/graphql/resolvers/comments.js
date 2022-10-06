@@ -45,7 +45,6 @@ module.exports = {
       } else {
         throw new UserInputError("Post not found");
       }
-    },
-    toggleLike: async (_, { postId }, context) => {},
+    }
   },
 };
