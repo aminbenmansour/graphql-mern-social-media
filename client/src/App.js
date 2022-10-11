@@ -12,12 +12,14 @@ import Register from "./Pages/Register"
 function App() {
   return (
     <Router>
-      <MenuBar />
-      <Routes>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
-      </Routes>
+      <Container>
+        <MenuBar />
+        <Routes>
+          <Route exact path="/" element={<Home/>} />
+          <Route exact path="/login" element={<Login/>} />
+          <Route exact path="/register" element={<Register/>} />
+        </Routes>
+      </Container>
     </Router>
   );
 }
