@@ -9,7 +9,8 @@ const link = new HttpLink({
 
 const client = new ApolloClient({
   uri: link,
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  connectToDevTools: true
 });
 
 export default (
