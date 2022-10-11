@@ -10,9 +10,11 @@ import Register from "./Pages/Register"
 function App() {
   return (
     <Router>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/register" component={Register} />
+      <Routes>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
+      </Routes>
     </Router>
   );
 }
