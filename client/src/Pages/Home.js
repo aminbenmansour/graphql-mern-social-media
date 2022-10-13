@@ -4,7 +4,6 @@ import { Grid, Image } from "semantic-ui-react";
 const Home = () => {
   const { loading, data } = useQuery(FETCH_POSTS);
 
-  const posts = data.getPosts;
   return (
     <div>
       <h1>Home Page</h1>
@@ -18,8 +17,8 @@ const Home = () => {
           {loading ? (
             <h1> Loading posts</h1>
           ) : (
-            posts &&
-            posts.map((el) => {
+            data.getPosts &&
+            data.getPosts.map((el) => {
               <Grid.Column></Grid.Column>;
             })
           )}
