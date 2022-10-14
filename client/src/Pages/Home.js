@@ -10,7 +10,7 @@ const Home = () => {
     <div>
       <h1>Home Page</h1>
 
-      <Grid columns={3} divided>
+      <Grid columns={3} fluid>
         <Grid.Row>
           {loading ? (
             <h1> Loading posts</h1>
@@ -19,7 +19,7 @@ const Home = () => {
             data.getPosts.map((post) => {
               return (
                 <Grid.Column key={post.id} style={{marginBotton: 20}}>
-                  <PostCard post={post} />
+                  <PostCard post={post} style={{marginButton: 20}} />
                 </Grid.Column>
               );
             })
