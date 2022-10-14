@@ -22,7 +22,15 @@ const PostCard = (props) => {
       </Card.Content>
       <Card.Content extra>
         <div className="ui two buttons">
-          
+          <Button as="div" labelPosition="right">
+            <Button color="teal" basic>
+              <Icon name="heart" />
+              Like
+            </Button>
+            <Label basic color="teal" pointing="left">
+              {likeCount}
+            </Label>
+          </Button>
         </div>
       </Card.Content>
     </Card>
