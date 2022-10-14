@@ -11,7 +11,9 @@ const Register = () => {
 
   const onSubmit = () => {};
 
-  const onChange = () => {};
+  const onChange = (event) => {
+    setValues({...values, [event.target.name]: event.target.value})
+  };
 
   return (
     <div>
