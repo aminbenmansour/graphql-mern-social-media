@@ -4,7 +4,15 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 
 const PostCard = (props) => {
-  const { id, body, username, createdAt, likeCount } = props.post;
+  const { id, body, username, createdAt, likeCount, commentCount } = props.post;
+
+  function likePost() {
+    
+  }
+
+  function commentOnPost() {
+
+  }
 
   return (
     <Card>
@@ -22,13 +30,20 @@ const PostCard = (props) => {
       </Card.Content>
       <Card.Content extra>
         <div className="ui two buttons">
-          <Button as="div" labelPosition="right">
+          <Button as="div" labelPosition="right" style={{ marginRight: '.2rem' }} onClick={likePost}>
             <Button color="teal" basic>
               <Icon name="heart" />
-              Like
             </Button>
-            <Label basic color="teal" pointing="left">
+            <Label basic size="mini" color="teal" pointing="left">
               {likeCount}
+            </Label>
+          </Button>
+          <Button as="div" labelPosition="right" onClick={commentOnPost}>
+            <Button color="blue" basic>
+              <Icon name="comment" />
+            </Button>
+            <Label basic color="blue" pointing="left">
+              {commentCount}
             </Label>
           </Button>
         </div>
