@@ -20,7 +20,10 @@ const Register = () => {
     variables: values
   })
 
-  const onSubmit = () => {};
+  const onSubmit = (event) => {
+    event.preventDefault();
+    addUser()
+  };
 
   const onChange = (event) => {
     setValues({...values, [event.target.name]: event.target.value})
