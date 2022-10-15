@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { gql } from "@apollo/client";
+import { useMutation } from "@apollo/react-hooks";
 
 import { Button, Form } from "semantic-ui-react";
 
@@ -11,6 +12,13 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
+
+  const[addUser, {loading}] = useMutation(REGISTER_USER, {
+    update(proxy, result) {
+      console.log(result)
+    },
+    variables: values
+  })
 
   const onSubmit = () => {};
 
