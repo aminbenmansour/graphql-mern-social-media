@@ -21,12 +21,10 @@ const Register = () => {
   const { onChange, onSubmit, values } = useForm(registerUser, initialState);
   
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
-    update(_, result) {
-      console.log(result);
-      navigate("/");
+    update() {
+      navigate("/login");
     },
     onError(err) {
-      console.log(err);
       setErrors(err.graphQLErrors[0].extensions.errors);
     },
     variables: values,
