@@ -30,13 +30,14 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className="form-container">
       <h1>Register Page</h1>
 
-      <Form onSubmit={onSubmit} noValidate>
+      <Form onSubmit={onSubmit} noValidate className={loading ? "loading" : ""}>
         <Form.Input
           label="Username"
           name="username"
+          type="text"
           placeholder="Username"
           value={values.username}
           onChange={onChange}
@@ -45,6 +46,7 @@ const Register = () => {
         <Form.Input
           label="Email"
           name="email"
+          type="email"
           placeholder="Email"
           value={values.email}
           onChange={onChange}
@@ -53,6 +55,7 @@ const Register = () => {
         <Form.Input
           label="Password"
           name="password"
+          type="password"
           placeholder="Password"
           value={values.password}
           onChange={onChange}
@@ -61,6 +64,7 @@ const Register = () => {
         <Form.Input
           label="Confirm password"
           name="confirmPassword"
+          type="password"
           placeholder="Confirm password"
           value={values.confirmPassword}
           onChange={onChange}
