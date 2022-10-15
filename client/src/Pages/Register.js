@@ -1,4 +1,7 @@
 import { useState } from "react";
+
+import { gql } from "@apollo/client";
+
 import { Button, Form } from "semantic-ui-react";
 
 const Register = () => {
@@ -59,5 +62,29 @@ const Register = () => {
     </div>
   );
 };
+
+const REGISTER_USER = gql`
+  mutation register(
+    $username: String!
+    $email: String!
+    $password: String!
+    $confirmPassword: String!
+  ) {
+    register(
+      registerInput : {
+        username: $username
+        email: $email
+        password: $password
+        confirmPassword: $confirmPassword
+      }
+    ) {
+      id
+      email
+      username
+      createdAt
+      token
+    }
+  }
+`;
 
 export default Register;
