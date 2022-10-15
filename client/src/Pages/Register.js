@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/react-hooks";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +9,8 @@ import { useForm } from "../Hooks/hooks";
 const Register = () => {
   const navigate = useNavigate();
 
+  const [errors, setErrors] = useState({});
+
   const initialState = {
     username: "",
     email: "",
@@ -15,7 +18,7 @@ const Register = () => {
     confirmPassword: "",
   };
 
-  const { onChange, onSubmit, values } = useForm(addUser, initialState);
+  const { onChange, onSubmit, values } = useForm(registerUser, initialState);
   
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
     update(_, result) {
@@ -29,6 +32,9 @@ const Register = () => {
     variables: values,
   });
 
+  function registerUser() {
+    addUser();
+  }
   return (
     <div className="form-container">
       <h1>Register Page</h1>
