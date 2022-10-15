@@ -1,44 +1,33 @@
-import { useState } from "react";
-
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/react-hooks";
-
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 import { Button, Form } from "semantic-ui-react";
+
+import { useForm } from "../Hooks/hooks";
 
 const Register = () => {
   const navigate = useNavigate();
 
-  const [values, setValues] = useState({
+  const initialState = {
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
-  });
+  };
 
-  const [errors, setErrors] = useState({});
-
+  const { onChange, onSubmit, values } = useForm(addUser, initialState);
+  
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
     update(_, result) {
-      console.log(result)
-      navigate("/")
+      console.log(result);
+      navigate("/");
     },
     onError(err) {
-      console.log(err)
+      console.log(err);
       setErrors(err.graphQLErrors[0].extensions.errors);
     },
     variables: values,
   });
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    addUser();
-  };
-
-  const onChange = (event) => {
-    setValues({ ...values, [event.target.name]: event.target.value });
-  };
 
   return (
     <div className="form-container">
