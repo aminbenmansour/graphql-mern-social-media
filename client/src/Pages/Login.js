@@ -1,25 +1,31 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/react-hooks";
 import { useNavigate } from "react-router-dom";
 import { Button, Form } from "semantic-ui-react";
 
+import { AuthContext } from "../Context/auth";
 import { useForm } from "../Hooks/hooks";
 
 const Login = () => {
+  const context = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [errors, setErrors] = useState({});
 
   const initialState = {
     username: "",
-    password: ""
+    password: "",
   };
 
-  const { onChange, onSubmit, values } = useForm(loginUserCallback, initialState);
-  
+  const { onChange, onSubmit, values } = useForm(
+    loginUserCallback,
+    initialState
+  );
+
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-    update() {
+    update(_, { data: { login: userData } }) {
+      context.login(userData);
       navigate("/");
     },
     onError(err) {
@@ -56,9 +62,8 @@ const Login = () => {
           onChange={onChange}
         />
 
-    
         <Button type="submit" primary>
-         Login
+          Login
         </Button>
       </Form>
       {Object.keys(errors).length > 0 && (
@@ -75,14 +80,8 @@ const Login = () => {
 };
 
 const LOGIN_USER = gql`
-  mutation login(
-    $username: String!
-    $password: String!
-  ) {
-    login(
-      username: $username
-      password: $password
-    ) {
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
       username
       email
       token
