@@ -1,4 +1,18 @@
 import { createContext, useReducer } from "react";
+import jwtDecode from "jwt-decode"
+
+const initialState = {
+  user: null
+}
+
+if(localStorage.getItem("jwt-token")) {
+  const decoded = jwtDecode(localStorage.getItem("jwt-token"))
+  if(decoded.exp * 1000 < Date.now()) {
+    initialState.user = null
+  } else {
+    initialState.user = decoded
+  }
+} 
 
 const AuthContext = createContext({
   user: null,
@@ -24,7 +38,7 @@ function authReducer(state, action) {
 }
 
 function AuthProvider(props) {
-  const [state, dispatch] = useReducer(authReducer, { user: null });
+  const [state, dispatch] = useReducer(authReducer, initialState);
 
   function login(userData) {
     localStorage.setItem("jwt-token", userData.token)
