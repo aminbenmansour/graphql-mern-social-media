@@ -1,8 +1,12 @@
 import { Form, Button } from "semantic-ui-react";
 import { gql } from "@apollo/client";
 
+import { useForm } from "../Utils/hooks";
 
 const PostForm = () => {
+  const { values, onChange, onSubmit } = useForm(createPostCallback, {
+    body: "",
+  });
 
   return (
     <Form onSubmit={onSubmit}>
