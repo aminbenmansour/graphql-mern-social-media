@@ -17,7 +17,7 @@ const PostForm = () => {
   });
 
   function createPostCallback() {
-    createPost()
+    createPost();
   }
 
   return (
@@ -25,6 +25,7 @@ const PostForm = () => {
       <h2>Create a post:</h2>
       <Form.Field>
         <Form.Input
+          name="body"
           placeholder="Hi World!"
           onChange={onChange}
           value={values.body}
