@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Form } from "semantic-ui-react";
 
 import { AuthContext } from "../Context/auth";
-import { useForm } from "../Hooks/hooks";
+import { useForm } from "../Utils/hooks";
 
 const Register = () => {
   const context = useContext(AuthContext);
