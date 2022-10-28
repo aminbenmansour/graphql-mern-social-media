@@ -8,7 +8,7 @@ import "./index.css";
 const client = new ApolloClient({
   uri: "http://localhost:5000/",
   headers: {
-    Authorization: localStorage.getItem('jwt-token') || '',
+    Authorization: localStorage.getItem('jwt-token') ? `Bearer ${localStorage.getItem('jwt-token')}` : '',
   },
   cache: new InMemoryCache(),
 });
