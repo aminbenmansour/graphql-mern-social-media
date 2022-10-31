@@ -1,1 +1,1 @@
-# graphql-101
+# graphql-mern-social-media-project
